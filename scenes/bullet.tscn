@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8dgq3k6pflxw"]
+
+[ext_resource type="Script" uid="uid://cqknkoswf4n8q" path="res://scripts/Bullet.cs" id="1_mkf8s"]
+
+[sub_resource type="Gradient" id="Gradient_h1aey"]
+offsets = PackedFloat32Array(0, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.25098, 1, 1, 1, 1)
+
+[node name="Bullet" type="Line2D" groups=["Projectiles"]]
+z_index = 48
+width = 4.0
+gradient = SubResource("Gradient_h1aey")
+script = ExtResource("1_mkf8s")

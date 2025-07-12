@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhjfqo8vsrmo1"]
+
+[ext_resource type="Script" uid="uid://bwev4kdrgxska" path="res://scripts/DebugUi.cs" id="1_loc82"]
+
+[node name="DebugUi" type="CanvasLayer"]
+
+[node name="DebugUi" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_loc82")
+
+[node name="Labels" type="VBoxContainer" parent="DebugUi"]
+layout_mode = 0
+mouse_filter = 2
