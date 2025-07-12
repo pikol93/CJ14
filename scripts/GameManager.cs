@@ -49,21 +49,6 @@ public partial class GameManager : Node
                         var next = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Disabled ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled;
                         DisplayServer.WindowSetVsyncMode(next);
                         break;
-
-                    // Reload scene
-                    case Key.F7:
-                        var sw = new Stopwatch();
-                        sw.Start();
-
-                        Error error = GetTree().ReloadCurrentScene();
-                        if (error != Error.Ok)
-                        {
-                            GD.PrintErr($"Couldn't reload the scene. {error}");
-                        }
-
-                        sw.Stop();
-                        GD.Print($"Reloading scene time: {sw.ElapsedMilliseconds}");
-                        break;
                 }
             }
         }

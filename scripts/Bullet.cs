@@ -95,12 +95,18 @@ public partial class Bullet : Line2D
 
             var collider = (CollisionObject2D)result["collider"];
             var position = (Vector2)result["position"];
+            var rid = (Rid)result["rid"];
 
-            ignoredObjects.Add(collider.GetRid());
+            ignoredObjects.Add(rid);
 
             if (collider is IDamagable damagable)
             {
                 damagable.TakeDamage(damage, DamageType.Bullet);
+            }
+            if (collider is IHittable hittable) 
+            {
+                var normal = (Vector2)result["normal"];
+                hittable.Hit(position, velocity.Normalized(), normal, DamageType.Bullet, damage);
             }
 
             if (collider is IPenetrable penetrable)

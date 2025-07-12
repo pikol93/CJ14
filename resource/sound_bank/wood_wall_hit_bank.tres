@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://cbuhmmn114d6u"]
+
+[ext_resource type="AudioStream" uid="uid://dukagu1w1jsce" path="res://sound/wood/wood_hit_1.mp3" id="1_1jgbq"]
+[ext_resource type="Script" uid="uid://bttv85tvgb3ji" path="res://scripts/resource/SoundBank.cs" id="1_rqaa6"]
+[ext_resource type="AudioStream" uid="uid://csdjiknwn0v5y" path="res://sound/wood/wood_hit_2.mp3" id="2_r3a8c"]
+[ext_resource type="AudioStream" uid="uid://bd5cgd2im6txv" path="res://sound/wood/wood_hit_3.mp3" id="3_wvbar"]
+[ext_resource type="AudioStream" uid="uid://cbanrutemjwx2" path="res://sound/wood/wood_hit_4.mp3" id="4_rtnsn"]
+
+[resource]
+script = ExtResource("1_rqaa6")
+Samples = Array[AudioStream]([ExtResource("1_1jgbq"), ExtResource("2_r3a8c"), ExtResource("3_wvbar"), ExtResource("4_rtnsn")])

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 namespace Pikol93.CJ14;
 
@@ -13,6 +14,15 @@ public partial class CameraPlayer : Camera2D
     private Vector2 currentPosition;
     private Vector2 targetPosition;
     public Node2D player;
+
+    public override void _Ready()
+    {
+        var cameraNodes = GetTree().Root.GetDescendants<CameraPlayer>();
+        if (cameraNodes.Count() > 1) {
+            GD.PrintErr("Multiple game cameras detected. Dumping scene tree.");
+            GetTree().Root.PrintTreePretty();
+        }
+    }
 
     public override void _Process(double delta)
     {

@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4gtv1hvyqi5g"]
+
+[ext_resource type="Script" uid="uid://psl78p1m6h6e" path="res://scripts/environment/Wall.cs" id="1_wykyb"]
+[ext_resource type="Texture2D" uid="uid://h55nn1bel0os" path="res://textures/environment/WallWodden1.png" id="2_e00m8"]
+[ext_resource type="Resource" uid="uid://cbuhmmn114d6u" path="res://resource/sound_bank/wood_wall_hit_bank.tres" id="2_tdtm6"]
+[ext_resource type="Texture2D" uid="uid://d4cc2aq0fuuud" path="res://textures/environment/WallWooden1Joint.png" id="3_tdtm6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvhfp"]
+size = Vector2(16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_uvhfp"]
+cull_mode = 1
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[node name="Wall" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_wykyb")
+HitSoundBank = ExtResource("2_tdtm6")
+PenetrationValue = 1000.0
+Length = 64.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_e00m8")
+
+[node name="Joint1" type="Sprite2D" parent="."]
+texture = ExtResource("3_tdtm6")
+
+[node name="Joint2" type="Sprite2D" parent="."]
+texture = ExtResource("3_tdtm6")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uvhfp")
+
+[node name="Occluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_uvhfp")
