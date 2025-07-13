@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://v8cjqwpqockw"]
+
+[ext_resource type="Texture2D" uid="uid://besbhavnjoume" path="res://textures/environment/decoration/table.png" id="1_02ppr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02ppr"]
+size = Vector2(24, 48)
+
+[node name="Table" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_02ppr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_02ppr")

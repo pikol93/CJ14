@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Pikol93.CJ14;
 
@@ -12,6 +13,7 @@ public partial class Bullet : Line2D
 
     private static readonly PackedScene Scene = (PackedScene)ResourceLoader.Load("res://Scenes/bullet.tscn");
 
+    public Team Team { get; set; }
     public double damage;
     public Vector2 velocity;
     // Bullet with no set minVelocity will immediately be deleted
@@ -98,6 +100,14 @@ public partial class Bullet : Line2D
             var rid = (Rid)result["rid"];
 
             ignoredObjects.Add(rid);
+
+            if (collider is ITeammable teammable)
+            {
+                if (Team == teammable.GetTeam())
+                {
+                    continue;
+                }
+            }
 
             if (collider is IDamagable damagable)
             {

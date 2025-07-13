@@ -26,10 +26,15 @@ public partial class CameraPlayer : Camera2D
 
     public override void _Process(double delta)
     {
+        if (player == null)
+        {
+            return;
+        }
+        
         targetPosition = controller ?
             GetTargetPositionController() : GetTargetPositionMouse();
 
-        currentPosition = currentPosition.Lerp(targetPosition, 0.3f);
+        currentPosition = currentPosition.Lerp(targetPosition, 0.1f);
         GlobalPosition = player.GlobalPosition + currentPosition;
     }
 

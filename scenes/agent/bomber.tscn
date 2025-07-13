@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://byhy4480suggl"]
+
+[ext_resource type="Script" uid="uid://blqsetrhp80rk" path="res://scripts/agent/BomberAgent.cs" id="1_ki8g5"]
+[ext_resource type="Texture2D" uid="uid://du2aypyypsu0d" path="res://textures/Bomber.png" id="2_ki8g5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u8vuu"]
+radius = 16.0
+
+[node name="BomberAgent" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ki8g5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u8vuu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ki8g5")

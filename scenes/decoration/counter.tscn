@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://t8kl8bwg6y07"]
+
+[ext_resource type="Texture2D" uid="uid://b0cikij0oxoo1" path="res://textures/environment/decoration/counter.png" id="1_5rvwa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k82oy"]
+size = Vector2(224, 24)
+
+[node name="Counter" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5rvwa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k82oy")

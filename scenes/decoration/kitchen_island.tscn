@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bptdn1mn8838v"]
+
+[ext_resource type="Texture2D" uid="uid://cnmt8qk3vmsky" path="res://textures/environment/decoration/kitchen_island.png" id="1_aoq6s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02ppr"]
+size = Vector2(24, 48)
+
+[node name="KitchenIsland" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_aoq6s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_02ppr")

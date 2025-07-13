@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsxaxnr1od2u6"]
+
+[ext_resource type="Texture2D" uid="uid://46sjhdi7hwtw" path="res://textures/light.png" id="1_sei7k"]
+
+[node name="WhiteLight" type="PointLight2D"]
+energy = 0.3
+texture = ExtResource("1_sei7k")
+texture_scale = 0.3

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://b0e8nunc8q5q2"]
+
+[ext_resource type="AudioStream" uid="uid://bdkvcmy7p8lcl" path="res://sound/pistol/pistol_shot_1.mp3" id="1_dju4n"]
+[ext_resource type="AudioStream" uid="uid://dqxcswkwgi8l7" path="res://sound/pistol/pistol_shot_2.mp3" id="2_xuvm3"]
+[ext_resource type="Script" uid="uid://bttv85tvgb3ji" path="res://scripts/resource/SoundBank.cs" id="5_x06jg"]
+
+[resource]
+script = ExtResource("5_x06jg")
+Samples = Array[AudioStream]([ExtResource("1_dju4n"), ExtResource("2_xuvm3")])

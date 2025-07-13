@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4cc2aq0fuuud"
-path="res://.godot/imported/WallWooden1Joint.png-6e7f9ee83744f5d1cc2f83f4042bcdf2.ctex"
+uid="uid://caa4rnc7xbuxg"
+path="res://.godot/imported/WallParticle.png-de37b77c2a7e7eab37e8b77860bb6446.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/environment/WallWooden1Joint.png"
-dest_files=["res://.godot/imported/WallWooden1Joint.png-6e7f9ee83744f5d1cc2f83f4042bcdf2.ctex"]
+source_file="res://textures/environment/wall/WallParticle.png"
+dest_files=["res://.godot/imported/WallParticle.png-de37b77c2a7e7eab37e8b77860bb6446.ctex"]
 
 [params]
 

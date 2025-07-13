@@ -1,0 +1,15 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://cuvhof5fmflkj"]
+
+[ext_resource type="AudioStream" uid="uid://d4crw12jxcpm5" path="res://sound/glass/glass_break_1.mp3" id="1_ha5ra"]
+[ext_resource type="AudioStream" uid="uid://5p43gcip7r3h" path="res://sound/glass/glass_break_2.mp3" id="2_mcg6n"]
+[ext_resource type="AudioStream" uid="uid://dg0wcdq2dtxpp" path="res://sound/glass/glass_break_3.mp3" id="3_lwbgp"]
+[ext_resource type="AudioStream" uid="uid://cwjxk54i802yi" path="res://sound/glass/glass_break_4.mp3" id="4_0s5io"]
+
+[resource]
+playback_mode = 1
+random_pitch = 1.2
+streams_count = 4
+stream_0/stream = ExtResource("1_ha5ra")
+stream_1/stream = ExtResource("2_mcg6n")
+stream_2/stream = ExtResource("3_lwbgp")
+stream_3/stream = ExtResource("4_0s5io")

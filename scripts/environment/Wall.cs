@@ -7,7 +7,7 @@ namespace Pikol93.CJ14;
 [Tool]
 public partial class Wall : StaticBody2D, IHittable, IPenetrable
 {
-    private const float WIDTH = 16f;
+    private const float WIDTH = 8f;
     private const float HALF_WIDTH = WIDTH / 2f;
     private static readonly PackedScene WallHitParticlesScene = GD.Load<PackedScene>("res://scenes/wall_hit_particles.tscn");
 
@@ -42,10 +42,10 @@ public partial class Wall : StaticBody2D, IHittable, IPenetrable
         set
         {
             // Set minimum width
-            if (value < 16f)
-                value = 16f;
+            if (value < WIDTH)
+                value = WIDTH;
 
-            value -= value % 8;
+            value -= value % HALF_WIDTH;
 
             length = value;
 
@@ -55,6 +55,8 @@ public partial class Wall : StaticBody2D, IHittable, IPenetrable
             UpdateWall();
         }
     }
+
+    public float HalfLength { get => length / 2; }
 
     public override void _Ready()
     {
@@ -73,24 +75,24 @@ public partial class Wall : StaticBody2D, IHittable, IPenetrable
     private void UpdateWall()
     {
         sprite.RegionEnabled = true;
-        sprite.RegionRect = new Rect2(0f, 0f, Length * 2f, WIDTH);
+        sprite.RegionRect = new Rect2(0f, 0f, Length, WIDTH);
 
-        joint1.Position = new Vector2(-Length + HALF_WIDTH, 0f);
-        joint2.Position = new Vector2(Length - HALF_WIDTH, 0f);
+        joint1.Position = new Vector2(-HalfLength + HALF_WIDTH, 0f);
+        joint2.Position = new Vector2(HalfLength - HALF_WIDTH, 0f);
 
         collider.Shape = new RectangleShape2D()
         {
-            Size = new Vector2(Length * 2, WIDTH),
+            Size = new Vector2(Length, WIDTH),
         };
 
         occluder.Occluder = new OccluderPolygon2D()
         {
             Polygon =
             [
-                    new(-Length, -HALF_WIDTH),
-                    new(Length, -HALF_WIDTH),
-                    new(Length, HALF_WIDTH),
-                    new(-Length, HALF_WIDTH)
+                    new(-HalfLength, -HALF_WIDTH),
+                    new(HalfLength, -HALF_WIDTH),
+                    new(HalfLength, HALF_WIDTH),
+                    new(-HalfLength, HALF_WIDTH)
             ]
         };
     }
@@ -102,21 +104,38 @@ public partial class Wall : StaticBody2D, IHittable, IPenetrable
 
         level.PlayRandomSoundAt(hitPosition, (SoundBank)HitSoundBank);
 
-        var floorNode = GetParent();
-        if (floorNode is null)
-            return;
-
         Vector2 bouncedVector = direction - 2 * direction.Dot(normal) * normal;
-
         var particles = WallHitParticlesScene.Instantiate<GpuParticles2D>();
         particles.Emitting = true;
         particles.Amount = Mathf.CeilToInt(impact / 10.0);
 
         var material = (ParticleProcessMaterial)particles.ProcessMaterial;
         material.Direction = new Vector3(bouncedVector.X, bouncedVector.Y, 0f);
-        particles.Position = hitPosition;
-        floorNode.CallDeferred("add_child", particles);
-        // floorNode.AddFloorParticles(particles, hitPosition);
+        level.SpawnParticles(hitPosition, particles);
+    }
+
+    public Vector2 GetClosestPoint(Vector2 value)
+    {
+        float minX;
+        float maxX;
+        float minY;
+        float maxY;
+        if (IsRotated)
+        {
+            minX = Position.X - HalfLength;
+            maxX = Position.X + HalfLength;
+            minY = Position.Y - HALF_WIDTH;
+            maxY = Position.Y + HALF_WIDTH;
+        }
+        else
+        {
+            minX = Position.X - HALF_WIDTH;
+            maxX = Position.X + HALF_WIDTH;
+            minY = Position.Y - HalfLength;
+            maxY = Position.Y + HalfLength;
+        }
+
+        return new Vector2(Mathf.Clamp(value.X, minX, maxX), Mathf.Clamp(value.Y, minY, maxY));
     }
 
     public float GetIntersectionLength(Vector2 from, Vector2 to)

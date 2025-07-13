@@ -2,10 +2,12 @@ using Godot;
 
 namespace Pikol93.CJ14;
 
-public partial class Agent : CharacterBody2D
+public partial class Agent : CharacterBody2D, IDamagable
 {
     [Export]
     public float MovementSpeed { get; set; } = 300.0f;
+    [Export]
+    public double BaseHealth { get; set; } = 1.0f;
 
     public IController Controller { get; set; } = new NullController();
 
@@ -17,21 +19,26 @@ public partial class Agent : CharacterBody2D
         secondaryActionActive = false,
     };
 
+    protected Level Level { get; private set; }
+    private double health;
+
     public override void _Ready()
     {
-        if (Controller is PlayerController) 
+        health = BaseHealth;
+        if (Controller is PlayerController)
         {
-            var camera = new CameraPlayer()
-            {
-                Enabled = true,
-                player = this
-            };
-            AddChild(camera);
         }
+
+        Level = this.GetAncestor<Level>();
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        if (!IsAlive())
+        {
+            return;
+        }
+
         var inputFrame = Controller.FetchNextInputFrame();
         if (inputFrame is InputFrame value)
         {
@@ -53,6 +60,11 @@ public partial class Agent : CharacterBody2D
             lastFrame.primaryActionActive = false;
             lastFrame.secondaryActionActive = false;
         }
+    }
+
+    public bool IsAlive()
+    {
+        return health > 0.0f;
     }
 
     private void ProcessPrimary(bool before, bool now)
@@ -81,8 +93,9 @@ public partial class Agent : CharacterBody2D
         }
     }
 
-    public virtual AgentType GetAgentType() {
-        return AgentType.DummyAgent;
+    public virtual AgentType GetAgentType()
+    {
+        return AgentType.Dummy;
     }
 
     protected virtual void PrimaryJustActivated() { }
@@ -92,4 +105,16 @@ public partial class Agent : CharacterBody2D
     protected virtual void SecondaryJustActivated() { }
 
     protected virtual void SecondaryActive() { }
+
+    public void TakeDamage(double damage, DamageType damageType)
+    {
+        health -= damage;
+        if (health > 0.0f)
+        {
+            return;
+        }
+
+        GD.Print($"Agent {Name} died.");
+        CollisionLayer = 0;
+    }
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cr5t6vytdsao"]
 
-[ext_resource type="Texture2D" uid="uid://caa4rnc7xbuxg" path="res://textures/environment/WallParticle.png" id="1_4weck"]
+[ext_resource type="Texture2D" uid="uid://caa4rnc7xbuxg" path="res://textures/environment/wall/WallParticle.png" id="1_4weck"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4weck"]
 particles_animation = true
@@ -10,11 +10,14 @@ particles_anim_loop = true
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_18s61"]
 particle_flag_disable_z = true
-initial_velocity_min = 300.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 20.0
+initial_velocity_min = 200.0
 initial_velocity_max = 500.0
-gravity = Vector3(0, 98, 0)
-damping_min = 800.0
-damping_max = 900.0
+gravity = Vector3(0, 0, 0)
+damping_min = 1000.0
+damping_max = 1500.0
 scale_min = 3.0
 scale_max = 5.0
 
@@ -23,7 +26,7 @@ z_index = 20
 material = SubResource("CanvasItemMaterial_4weck")
 amount = 1
 texture = ExtResource("1_4weck")
-lifetime = 600.0
+lifetime = 9999.0
 one_shot = true
 explosiveness = 1.0
 visibility_rect = Rect2(-200, -200, 400, 400)
