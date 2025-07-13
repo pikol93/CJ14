@@ -7,6 +7,7 @@ public partial class GameManager : Node
 {
     public static GameManager Instance { get; private set; }
     public static bool DebugMode { get; private set; }
+    public static bool DrawNavMesh { get; private set; }
     public static bool Paused { get; private set; }
 
     public GameManager()
@@ -48,6 +49,15 @@ public partial class GameManager : Node
                     case Key.F2:
                         var next = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Disabled ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled;
                         DisplayServer.WindowSetVsyncMode(next);
+                        break;
+
+                    // Toggle NavMesh
+                    case Key.F3:
+                        DrawNavMesh = !DrawNavMesh;
+                        foreach (var level in GetTree().Root.GetDescendants<Level>())
+                        {
+                            level.QueueRedraw();
+                        }
                         break;
                 }
             }

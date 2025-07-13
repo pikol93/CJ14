@@ -20,9 +20,14 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "Level 1"
 
+[node name="Level2Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Level 2"
+
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
 [connection signal="pressed" from="VBoxContainer/Level1Button" to="." method="OnLevel1ButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/Level2Button" to="." method="OnLevel2ButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]

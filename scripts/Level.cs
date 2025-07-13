@@ -10,13 +10,15 @@ public partial class Level : Node2D
 
     private Queue<AudioStreamPlayer2D> AudioPlayers { get; } = [];
 
-    public override void _Ready() 
+    public override void _Ready()
     {
         for (var i = 0; i < 32; i++) {
             var audioPlayer = new AudioStreamPlayer2D();
             AddChild(audioPlayer);
             AudioPlayers.Enqueue(audioPlayer);
         }
+
+        PrepareNavigation();
     }
 
     public void PlayRandomSoundAt(Vector2 position, SoundBank soundBank)

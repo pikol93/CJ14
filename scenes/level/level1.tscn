@@ -19,6 +19,7 @@
 [node name="Level1" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_pgq8h")
+Bounds = PackedVector2Array(-1000, -1000, 1000, -1000, 1000, 1000, -1000, 1000)
 
 [node name="Floors" type="Node2D" parent="."]
 
@@ -252,6 +253,12 @@ texture = ExtResource("14_frac2")
 position = Vector2(616, 328)
 texture = ExtResource("14_frac2")
 
+[node name="Counter" parent="Decoration" instance=ExtResource("13_tlhdo")]
+position = Vector2(584, 308)
+
+[node name="BarStand" parent="Decoration" instance=ExtResource("15_y486x")]
+position = Vector2(620, 232)
+
 [node name="Windows" type="Node2D" parent="."]
 
 [node name="WindowLarge" parent="Windows" instance=ExtResource("3_pgq8h")]
@@ -294,7 +301,7 @@ rotation = -2.78729
 
 [node name="Door2" parent="Doors" instance=ExtResource("5_mg8dc")]
 position = Vector2(424, 316)
-rotation = -1.31423
+rotation = -1.52716
 
 [node name="Door3" parent="Doors" instance=ExtResource("5_mg8dc")]
 position = Vector2(420, 224)
@@ -312,9 +319,3 @@ position = Vector2(640, 576)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.752941, 0.752941, 0.752941, 1)
-
-[node name="Counter" parent="." instance=ExtResource("13_tlhdo")]
-position = Vector2(584, 308)
-
-[node name="BarStand" parent="." instance=ExtResource("15_y486x")]
-position = Vector2(620, 232)

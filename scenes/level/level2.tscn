@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhl66s7pk380q"]
+
+[ext_resource type="Script" uid="uid://bucnck85r8c4s" path="res://scripts/Level.cs" id="1_h3ie6"]
+[ext_resource type="PackedScene" uid="uid://c4gtv1hvyqi5g" path="res://scenes/wall.tscn" id="6_h687j"]
+[ext_resource type="PackedScene" uid="uid://bdjq486mhvlf1" path="res://scenes/decoration/couch.tscn" id="7_8k8u7"]
+[ext_resource type="PackedScene" uid="uid://chlddcxtfpxvy" path="res://scenes/window_large.tscn" id="13_72ut4"]
+
+[node name="Level1" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_h3ie6")
+Bounds = PackedVector2Array(-1000, -1000, 1000, -1000, 1000, 1000, -1000, 1000)
+
+[node name="Floors" type="Node2D" parent="."]
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall11" parent="Walls" instance=ExtResource("6_h687j")]
+position = Vector2(344, 348)
+Length = 208.0
+
+[node name="Wall12" parent="Walls" instance=ExtResource("6_h687j")]
+position = Vector2(444, 448)
+rotation = 1.5708
+IsRotated = true
+Length = 208.0
+
+[node name="Decoration" type="Node2D" parent="."]
+
+[node name="Couch" parent="Decoration" instance=ExtResource("7_8k8u7")]
+position = Vector2(212, 416)
+
+[node name="Windows" type="Node2D" parent="."]
+
+[node name="WindowLarge" parent="Windows" instance=ExtResource("13_72ut4")]
+position = Vector2(352, 446)
+
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="PlayerSpawn" type="Node2D" parent="."]
+position = Vector2(640, 576)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.752941, 0.752941, 0.752941, 1)

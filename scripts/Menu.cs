@@ -12,6 +12,11 @@ public partial class Menu : Control
         LoadLevel("res://scenes/level/level1.tscn");
     }
 
+    public void OnLevel2ButtonPressed()
+    {
+        LoadLevel("res://scenes/level/level2.tscn");
+    }
+
     public void OnQuitButtonPressed()
     {
         GD.Print("Quitting. Goodbye. :)");
