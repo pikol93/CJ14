@@ -103,7 +103,7 @@ public partial class Bullet : Line2D
 
             if (collider is ITeammable teammable)
             {
-                if (Team == teammable.GetTeam())
+                if (Team == teammable.Team)
                 {
                     continue;
                 }

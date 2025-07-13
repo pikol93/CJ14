@@ -2,10 +2,10 @@ using Godot;
 
 namespace Pikol93.CJ14;
 
-public partial class Agent : CharacterBody2D, IDamagable
+public partial class Agent : CharacterBody2D, IDamagable, ITeammable
 {
     [Export]
-    public float MovementSpeed { get; set; } = 300.0f;
+    public float MovementSpeed { get; set; } = 200.0f;
     [Export]
     public double BaseHealth { get; set; } = 1.0f;
 
@@ -20,6 +20,9 @@ public partial class Agent : CharacterBody2D, IDamagable
     };
 
     protected Level Level { get; private set; }
+
+    public Team Team => Team.Player;
+
     private double health;
 
     public override void _Ready()

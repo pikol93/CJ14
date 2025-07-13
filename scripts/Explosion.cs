@@ -8,6 +8,8 @@ public partial class Explosion : Node2D
     private List<Vector2> ContactPoints { get; } = [];
 
     [Export]
+    private Team Team { get; set; } = CJ14.Team.Player;
+    [Export]
     private NodePath AnimationPlayerPath { get; set; }
     [Export]
     private CircleShape2D ExplosionShape { get; set; }
@@ -69,6 +71,14 @@ public partial class Explosion : Node2D
             {
                 GD.Print($"Obscured: {collider.Name}");
                 continue;
+            }
+
+            if (collider is ITeammable teammable)
+            {
+                if (teammable.Team == Team)
+                {
+                    continue;
+                }
             }
 
             var (contactPoint, normal) = GetExplosionContactPointAndNormal(collider);
