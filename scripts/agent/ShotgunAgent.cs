@@ -21,13 +21,17 @@ public partial class ShotgunAgent : Agent
     private float MinSpeed { get; set; } = 1500.0f;
     [Export]
     private float MaxSpeed { get; set; } = 2000.0f;
+    [Export]
+    private int BaseAmmo { get; set; } = 7;
 
     private AnimationPlayer animationPlayer;
     private Node2D muzzle;
+    private int ammo;
 
     public override void _Ready()
     {
         base._Ready();
+        ammo = BaseAmmo;
         animationPlayer = this.GetNodeOrThrow<AnimationPlayer>(AnimationPlayerNodePath);
         muzzle = this.GetNodeOrThrow<Node2D>(MuzzleNodePath);
     }
@@ -42,8 +46,19 @@ public partial class ShotgunAgent : Agent
         ShootBullet();
     }
 
+    protected override (int reserve, int total) GetAmmo()
+    {
+        return (ammo, BaseAmmo);
+    }
+
     private void ShootBullet()
     {
+        if (ammo <= 0)
+        {
+            return;
+        }
+        ammo--;
+
         var random = new Random(0);
         var baseRotation = Rotation;
         var globalPosition = muzzle.GlobalPosition;

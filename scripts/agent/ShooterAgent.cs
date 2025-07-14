@@ -10,13 +10,17 @@ public partial class ShooterAgent : Agent
     private NodePath MuzzleNodePath { get; set; }
     [Export]
     private SoundBank PistolShotSoundBank { get; set; }
+    [Export]
+    private int BaseAmmo { get; set; } = 7;
 
     private AnimationPlayer animationPlayer;
     private Node2D muzzle;
+    private int ammo;
 
     public override void _Ready()
     {
         base._Ready();
+        ammo = BaseAmmo;
         animationPlayer = this.GetNodeOrThrow<AnimationPlayer>(AnimationPlayerNodePath);
         muzzle = this.GetNodeOrThrow<Node2D>(MuzzleNodePath);
     }
@@ -26,12 +30,23 @@ public partial class ShooterAgent : Agent
         return AgentType.Shooter;
     }
 
+    protected override (int reserve, int total) GetAmmo()
+    {
+        return (ammo, BaseAmmo);
+    }
+
     protected override void PrimaryJustActivated() {
         ShootBullet();
     }
 
     private void ShootBullet()
     {
+        if (ammo <= 0)
+        {
+            return;
+        }
+        ammo--;
+        
         var globalPosition = muzzle.GlobalPosition;
         Level.PlayRandomSoundAt(globalPosition, PistolShotSoundBank);
 

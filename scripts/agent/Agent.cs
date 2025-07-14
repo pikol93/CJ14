@@ -43,6 +43,9 @@ public partial class Agent : CharacterBody2D, IDamagable, ITeammable
             return;
         }
 
+        var (reserve, total) = GetAmmo();
+        AmmoUi.UpdateAmmo(reserve, total);
+
         var inputFrame = Controller.FetchNextInputFrame();
         if (inputFrame is InputFrame value)
         {
@@ -111,6 +114,10 @@ public partial class Agent : CharacterBody2D, IDamagable, ITeammable
     protected virtual void SecondaryActive() { }
 
     protected virtual void OnDeath() { }
+
+    protected virtual (int reserve, int total) GetAmmo() {
+        return (0, 0);
+    }
 
     public void TakeDamage(double damage, DamageType damageType)
     {

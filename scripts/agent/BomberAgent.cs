@@ -24,6 +24,11 @@ public partial class BomberAgent : Agent
         Explode();
     }
 
+    protected override (int reserve, int total) GetAmmo()
+    {
+        return (AlreadyExploded ? 0 : 1, 1);
+    }
+
     private void Explode()
     {
         if (AlreadyExploded)
