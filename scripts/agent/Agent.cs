@@ -122,6 +122,7 @@ public partial class Agent : CharacterBody2D, IDamagable, ITeammable
     public void TakeDamage(double damage, DamageType damageType)
     {
         health -= damage;
+        Level.SpawnBloodSplatters(Position, (int)(damage / 5));
         if (health > 0.0f)
         {
             return;

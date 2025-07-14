@@ -6,4 +6,6 @@
 
 [resource]
 script = ExtResource("5_x06jg")
+MinPitch = 0.9
+MaxPitch = 1.1
 Samples = Array[AudioStream]([ExtResource("1_dju4n"), ExtResource("2_xuvm3")])

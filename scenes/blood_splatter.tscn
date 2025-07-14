@@ -1,0 +1,18 @@
+[gd_scene load_steps=11 format=3 uid="uid://bwwy4csflv4np"]
+
+[ext_resource type="Script" uid="uid://dlwhg87t4f4o7" path="res://scripts/BloodSplatter.cs" id="1_4ixp3"]
+[ext_resource type="Texture2D" uid="uid://bdso4dlldqv0" path="res://textures/blood/BloodSplatter1.png" id="2_mp71f"]
+[ext_resource type="Texture2D" uid="uid://q3k6nncrmvlf" path="res://textures/blood/BloodSplatter2.png" id="3_sb78x"]
+[ext_resource type="Texture2D" uid="uid://b6f13p37desw0" path="res://textures/blood/BloodSplatter3.png" id="4_10kfd"]
+[ext_resource type="Texture2D" uid="uid://djcdx4p1jj34g" path="res://textures/blood/BloodSplatter4.png" id="5_obqn7"]
+[ext_resource type="Texture2D" uid="uid://dosk6x63fnfjw" path="res://textures/blood/BloodSplatter5.png" id="6_h1qqe"]
+[ext_resource type="Texture2D" uid="uid://3rxc7m860f2e" path="res://textures/blood/BloodSplatter6.png" id="7_nny6l"]
+[ext_resource type="Texture2D" uid="uid://b0605w4cowxbr" path="res://textures/blood/BloodSplatter7.png" id="8_1jyhw"]
+[ext_resource type="Texture2D" uid="uid://cx3etd06pymrr" path="res://textures/blood/BloodSplatter8.png" id="9_or6y6"]
+[ext_resource type="Texture2D" uid="uid://dnf7ec22nke3b" path="res://textures/blood/BloodSplatter9.png" id="10_21y8v"]
+
+[node name="BloodSplatter" type="Node2D"]
+script = ExtResource("1_4ixp3")
+Textures = [ExtResource("2_mp71f"), ExtResource("3_sb78x"), ExtResource("4_10kfd"), ExtResource("5_obqn7"), ExtResource("6_h1qqe"), ExtResource("7_nny6l"), ExtResource("8_1jyhw"), ExtResource("9_or6y6"), ExtResource("10_21y8v")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

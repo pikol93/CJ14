@@ -43,6 +43,17 @@ public partial class Level : Node2D
         RebakeNavigation();
     }
 
+    public List<Vector2> FindPath(Vector2 from, Vector2 to)
+    {
+        if (navMesh == null)
+        {
+            return [];
+        }
+
+        var path = navMesh.FindPath(from.ToSNVector2(), to.ToSNVector2());
+        return path.ToGodotVector2List();
+    }
+
     private void OnChildExitingTree(Node node)
     {
         if (IsQueuedForDeletion())

@@ -9,7 +9,9 @@ public partial class Level : Node2D
     private static readonly Random random = new();
 
     private Queue<AudioStreamPlayer2D> AudioPlayers { get; } = [];
-    
+
+    [Export]
+    public PackedScene BloodSplatterScene { get; set; } = GD.Load<PackedScene>("res://scenes/blood_splatter.tscn");
     [Export]
     public int ShootersAvailable { get; set; } = 0;
     [Export]
@@ -62,5 +64,23 @@ public partial class Level : Node2D
     {
         particlesNode.Position = position;
         CallDeferred("add_child", particlesNode);
+    }
+
+    public void SpawnBloodSplatters(Vector2 position, int amount)
+    {
+        if (!GameSettings.EnableGore)
+        {
+            return;
+        }
+
+        const float Distance = 50.0f;
+        var random = new Random();
+        for (var i = 0; i < amount; i++)
+        {
+            var offset = new Vector2((random.NextSingle() - 0.5f) * 2 * Distance, (random.NextSingle() - 0.5f) * 2 * Distance);
+            var node = BloodSplatterScene.Instantiate<BloodSplatter>();
+            node.Position = position + offset;
+            AddChild(node);
+        }
     }
 }
