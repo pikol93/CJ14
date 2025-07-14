@@ -18,12 +18,12 @@ initial_velocity_max = 500.0
 gravity = Vector3(0, 0, 0)
 damping_min = 1000.0
 damping_max = 1500.0
-scale_min = 3.0
-scale_max = 5.0
+scale_max = 3.0
 
 [node name="WallHitParticles" type="GPUParticles2D"]
 z_index = 20
 material = SubResource("CanvasItemMaterial_4weck")
+emitting = false
 amount = 1
 texture = ExtResource("1_4weck")
 lifetime = 9999.0

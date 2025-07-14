@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://yy4jmafs14j4"]
+
+[ext_resource type="AudioStream" uid="uid://dsky07pw6jqwf" path="res://sound/shotgun/shotgun_shot_1.mp3" id="1_oq6eb"]
+[ext_resource type="AudioStream" uid="uid://bunq4pxgxwrt6" path="res://sound/shotgun/shotgun_shot_2.mp3" id="2_cc01m"]
+[ext_resource type="Script" uid="uid://bttv85tvgb3ji" path="res://scripts/resource/SoundBank.cs" id="3_ax6gg"]
+
+[resource]
+script = ExtResource("3_ax6gg")
+MinPitch = 0.9
+MaxPitch = 1.1
+Samples = Array[AudioStream]([ExtResource("1_oq6eb"), ExtResource("2_cc01m")])

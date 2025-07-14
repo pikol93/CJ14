@@ -2,7 +2,7 @@ using Godot;
 
 namespace Pikol93.CJ14;
 
-public partial class Door : StaticBody2D, IDamagable, IHittable, IPenetrable
+public partial class Door : StaticBody2D, IDamagable, IHittable
 {
     private static readonly PackedScene WallHitParticlesScene = GD.Load<PackedScene>("res://scenes/wall_hit_particles.tscn");
 

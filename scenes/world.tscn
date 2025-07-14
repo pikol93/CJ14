@@ -1,8 +1,214 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbtokbxiof6mx"]
+[gd_scene load_steps=8 format=3 uid="uid://bbtokbxiof6mx"]
 
 [ext_resource type="Script" uid="uid://cxv83o4onk4ih" path="res://scripts/World.cs" id="1_nnsk1"]
+[ext_resource type="Script" uid="uid://bqqwdk4vlvdo0" path="res://scenes/AgentChoiceMenu.cs" id="2_71j4m"]
+[ext_resource type="Texture2D" uid="uid://b8xlo6jaj84an" path="res://textures/environment/characters/char1.png" id="2_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://6sn58oxfylr" path="res://textures/environment/characters/char2.png" id="3_4wyf3"]
+[ext_resource type="Texture2D" uid="uid://b3wp8mujrfwgj" path="res://textures/environment/characters/char3.png" id="4_k0juu"]
+[ext_resource type="Theme" uid="uid://cs0beh2cy48d2" path="res://resource/base_theme.tres" id="6_qfnet"]
+[ext_resource type="Script" uid="uid://dw81vhq35yu5b" path="res://scripts/GameMenu.cs" id="7_i7141"]
 
 [node name="World" type="Node"]
 script = ExtResource("1_nnsk1")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="YouAreDead" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="YouAreDead"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_qfnet")
+color = Color(0, 0, 0, 0.501961)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="YouAreDead/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="YouAreDead/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "YOU ARE DEAD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="YouAreDead/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Press R to reset or ESC to quit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AgentChoice" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("2_71j4m")
+ShooterAvailableLabelPath = NodePath("Control/HBoxContainer/VBoxContainer/Label2")
+BomberAvailableLabelPath = NodePath("Control/HBoxContainer/VBoxContainer2/Label2")
+ShotgunAvailableLabelPath = NodePath("Control/HBoxContainer/VBoxContainer3/Label2")
+ShooterButtonPath = NodePath("Control/HBoxContainer/VBoxContainer/Button")
+BomberButtonPath = NodePath("Control/HBoxContainer/VBoxContainer2/Button")
+ShotgunButtonPath = NodePath("Control/HBoxContainer/VBoxContainer3/Button")
+
+[node name="Control" type="ColorRect" parent="AgentChoice"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_qfnet")
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AgentChoice/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AgentChoice/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="AgentChoice/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Shooter"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="AgentChoice/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "3 available"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="AgentChoice/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_rwgxs")
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="AgentChoice/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Choose"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="AgentChoice/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="AgentChoice/Control/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Bomber"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="AgentChoice/Control/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "3 available"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="AgentChoice/Control/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("3_4wyf3")
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="AgentChoice/Control/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Choose"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="AgentChoice/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="AgentChoice/Control/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Shotgunner"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="AgentChoice/Control/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "3 available"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="AgentChoice/Control/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("4_k0juu")
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="AgentChoice/Control/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Choose"
+
+[node name="GameMenu" type="CanvasLayer" parent="."]
+script = ExtResource("7_i7141")
+ResetButtonPath = NodePath("ColorRect/MarginContainer/VBoxContainer/VBoxContainer/Reset")
+
+[node name="ColorRect" type="ColorRect" parent="GameMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_qfnet")
+color = Color(0, 0, 0, 0.501961)
+
+[node name="MarginContainer" type="MarginContainer" parent="GameMenu/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameMenu/ColorRect/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="GameMenu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="GameMenu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameMenu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Continue" type="Button" parent="GameMenu/ColorRect/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Reset" type="Button" parent="GameMenu/ColorRect/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reset"
+
+[node name="Restart" type="Button" parent="GameMenu/ColorRect/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="GameMenu/ColorRect/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="visibility_changed" from="AgentChoice" to="AgentChoice" method="OnVisibilityChanged"]
+[connection signal="pressed" from="AgentChoice/Control/HBoxContainer/VBoxContainer/Button" to="AgentChoice" method="OnShooterPressed"]
+[connection signal="pressed" from="AgentChoice/Control/HBoxContainer/VBoxContainer2/Button" to="AgentChoice" method="OnBomberPressed"]
+[connection signal="pressed" from="AgentChoice/Control/HBoxContainer/VBoxContainer3/Button" to="AgentChoice" method="OnShotgunPressed"]
+[connection signal="visibility_changed" from="GameMenu" to="GameMenu" method="OnVisibilityChanged"]
+[connection signal="pressed" from="GameMenu/ColorRect/MarginContainer/VBoxContainer/VBoxContainer/Continue" to="GameMenu" method="OnContinuePressed"]
+[connection signal="pressed" from="GameMenu/ColorRect/MarginContainer/VBoxContainer/VBoxContainer/Reset" to="GameMenu" method="OnResetPressed"]
+[connection signal="pressed" from="GameMenu/ColorRect/MarginContainer/VBoxContainer/VBoxContainer/Restart" to="GameMenu" method="OnRestartPressed"]
+[connection signal="pressed" from="GameMenu/ColorRect/MarginContainer/VBoxContainer/VBoxContainer/Quit" to="GameMenu" method="OnQuitPressed"]

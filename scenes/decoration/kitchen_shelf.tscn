@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://crsed0gxy7j8l"]
+
+[ext_resource type="Texture2D" uid="uid://d23n2rqj60sm4" path="res://textures/environment/decoration/kitchen_shelf.png" id="1_u7rek"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u65u4"]
+size = Vector2(24, 32)
+
+[node name="KitchenShelf" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_u7rek")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_u65u4")

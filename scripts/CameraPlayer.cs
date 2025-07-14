@@ -22,6 +22,8 @@ public partial class CameraPlayer : Camera2D
             GD.PrintErr("Multiple game cameras detected. Dumping scene tree.");
             GetTree().Root.PrintTreePretty();
         }
+        
+        Zoom = new Vector2(2, 2);
     }
 
     public override void _Process(double delta)

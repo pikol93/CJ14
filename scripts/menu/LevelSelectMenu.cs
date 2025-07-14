@@ -1,9 +1,8 @@
 using Godot;
-using System;
 
 namespace Pikol93.CJ14;
 
-public partial class Menu : Control
+public partial class LevelSelectMenu : Control
 {
     private static readonly PackedScene WorldScene = GD.Load<PackedScene>("res://scenes/world.tscn");
 
@@ -17,10 +16,9 @@ public partial class Menu : Control
         LoadLevel("res://scenes/level/level2.tscn");
     }
 
-    public void OnQuitButtonPressed()
+    public void OnBackButtonPressed()
     {
-        GD.Print("Quitting. Goodbye. :)");
-        GetTree().Quit();
+        this.GetAncestor<Menu>().ToggleMenu("Main");
     }
 
     private void LoadLevel(string path)

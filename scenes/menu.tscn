@@ -1,33 +1,382 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq4vxosmuo4pg"]
+[gd_scene load_steps=14 format=3 uid="uid://dq4vxosmuo4pg"]
 
-[ext_resource type="Script" uid="uid://c4tbl2d1f3g3a" path="res://scripts/Menu.cs" id="1_yqeox"]
+[ext_resource type="Script" uid="uid://dmtryycoo1mo4" path="res://scripts/menu/Menu.cs" id="1_yqeox"]
+[ext_resource type="Theme" uid="uid://cs0beh2cy48d2" path="res://resource/base_theme.tres" id="2_vjb58"]
+[ext_resource type="Texture2D" uid="uid://chd3josebeja4" path="res://textures/logo.png" id="3_con2f"]
+[ext_resource type="Script" uid="uid://cej6ml3eo681k" path="res://scripts/menu/EpilepsyWarningMenu.cs" id="3_i6lef"]
+[ext_resource type="Script" uid="uid://c4tbl2d1f3g3a" path="res://scripts/menu/MainMenu.cs" id="3_mhnvy"]
+[ext_resource type="Script" uid="uid://dl2ij7l17ef3l" path="res://scripts/menu/LevelSelectMenu.cs" id="5_4ytvr"]
+[ext_resource type="Script" uid="uid://bllfbeto4heog" path="res://scripts/menu/OptionsMenu.cs" id="6_13sgg"]
+[ext_resource type="Script" uid="uid://cklm3hj6nlm51" path="res://scripts/menu/Credits.cs" id="6_g3eks"]
+[ext_resource type="PackedScene" uid="uid://dxdqltyuqtj11" path="res://scenes/credit_item.tscn" id="7_v86rl"]
 
-[node name="Menu" type="Control"]
+[sub_resource type="Animation" id="Animation_70i5f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/CenterContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i6lef"]
+resource_name = "display"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/CenterContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mj5lg"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/CenterContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnAnimationEnd"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70i5f"]
+_data = {
+&"RESET": SubResource("Animation_70i5f"),
+&"display": SubResource("Animation_i6lef"),
+&"hide": SubResource("Animation_mj5lg")
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+process_mode = 3
+
+[node name="Menu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_vjb58")
 script = ExtResource("1_yqeox")
+MenuPaths = Array[NodePath]([NodePath("Main"), NodePath("LevelSelect"), NodePath("Options"), NodePath("Credits"), NodePath("EpilepsyWarning")])
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="EpilepsyWarning" type="Control" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_i6lef")
+AnimationPlayerNodePath = NodePath("AnimationPlayer")
 
-[node name="Level1Button" type="Button" parent="VBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="Menu/EpilepsyWarning"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu/EpilepsyWarning/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/EpilepsyWarning/ColorRect/CenterContainer"]
+custom_minimum_size = Vector2(100.665, 0)
 layout_mode = 2
-text = "Level 1"
+theme_override_constants/separation = 100
+alignment = 1
 
-[node name="Level2Button" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/EpilepsyWarning/ColorRect/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Level 2"
+text = "Epilepsy warning"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="Label2" type="RichTextLabel" parent="Menu/EpilepsyWarning/ColorRect/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(168.875, 0)
+layout_mode = 2
+text = "This game contains flashing lights and visual effects 
+which may potentially trigger seizures for people with photosensitive epilepsy."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menu/EpilepsyWarning"]
+libraries = {
+&"": SubResource("AnimationLibrary_70i5f")
+}
+autoplay = "display"
+
+[node name="Main" type="Control" parent="Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_mhnvy")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Menu/Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu/Main/VBoxContainer2"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Main/VBoxContainer2/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("3_con2f")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Menu/Main/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Play" type="Button" parent="Menu/Main/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="Options" type="Button" parent="Menu/Main/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Credits" type="Button" parent="Menu/Main/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="Menu/Main/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
-[connection signal="pressed" from="VBoxContainer/Level1Button" to="." method="OnLevel1ButtonPressed"]
-[connection signal="pressed" from="VBoxContainer/Level2Button" to="." method="OnLevel2ButtonPressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]
+[node name="LevelSelect" type="Control" parent="Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_4ytvr")
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu/LevelSelect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Menu/LevelSelect/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/LevelSelect/CenterContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Level1Button" type="Button" parent="Menu/LevelSelect/CenterContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Level 1"
+
+[node name="Level2Button" type="Button" parent="Menu/LevelSelect/CenterContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Level 2"
+
+[node name="HSeparator" type="HSeparator" parent="Menu/LevelSelect/CenterContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Menu/LevelSelect/CenterContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Back"
+
+[node name="Options" type="Control" parent="Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_13sgg")
+GorePath = NodePath("CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer3/CheckButton")
+SoundVolumeValuePath = NodePath("CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer2/Label2")
+MusicVolumeValuePath = NodePath("CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer2/Label2")
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Options/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Options/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Gore"
+
+[node name="CheckButton" type="CheckButton" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sound volume"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
+layout_mode = 2
+text = "-"
+
+[node name="Label2" type="Label" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[node name="Button2" type="Button" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
+layout_mode = 2
+text = "+"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music volume"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer2"]
+layout_mode = 2
+text = "-"
+
+[node name="Label2" type="Label" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[node name="Button2" type="Button" parent="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer2"]
+layout_mode = 2
+text = "+"
+
+[node name="HSeparator2" type="HSeparator" parent="Menu/Options/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Back3" type="Button" parent="Menu/Options/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="Credits" type="Control" parent="Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_g3eks")
+CreditItemPackedScene = ExtResource("7_v86rl")
+CreditsListParentPath = NodePath("VBoxContainer/ScrollContainer/VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Menu/Credits/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Credits/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Back2" type="Button" parent="Menu/Credits/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="Menu/Main/VBoxContainer2/VBoxContainer/Play" to="Menu/Main" method="OnPlayButtonPressed"]
+[connection signal="pressed" from="Menu/Main/VBoxContainer2/VBoxContainer/Options" to="Menu/Main" method="OnOptionsButtonPressed"]
+[connection signal="pressed" from="Menu/Main/VBoxContainer2/VBoxContainer/Credits" to="Menu/Main" method="OnCreditsButtonPressed"]
+[connection signal="pressed" from="Menu/Main/VBoxContainer2/VBoxContainer/Quit" to="Menu/Main" method="OnQuitButtonPressed"]
+[connection signal="pressed" from="Menu/LevelSelect/CenterContainer/VBoxContainer2/VBoxContainer/Level1Button" to="Menu/LevelSelect" method="OnLevel1ButtonPressed"]
+[connection signal="pressed" from="Menu/LevelSelect/CenterContainer/VBoxContainer2/VBoxContainer/Level2Button" to="Menu/LevelSelect" method="OnLevel2ButtonPressed"]
+[connection signal="pressed" from="Menu/LevelSelect/CenterContainer/VBoxContainer2/Back" to="Menu/LevelSelect" method="OnBackButtonPressed"]
+[connection signal="toggled" from="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer3/CheckButton" to="Menu/Options" method="OnGoreToggled"]
+[connection signal="pressed" from="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer2/Button" to="Menu/Options" method="OnSoundMinusPressed"]
+[connection signal="pressed" from="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer5/HBoxContainer2/Button2" to="Menu/Options" method="OnSoundPlusPressed"]
+[connection signal="pressed" from="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer2/Button" to="Menu/Options" method="OnMusicMinusPressed"]
+[connection signal="pressed" from="Menu/Options/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer4/HBoxContainer2/Button2" to="Menu/Options" method="OnMusicPlusPressed"]
+[connection signal="pressed" from="Menu/Options/CenterContainer/VBoxContainer/Back3" to="Menu/Credits" method="OnBackButtonPressed"]
+[connection signal="pressed" from="Menu/Credits/VBoxContainer/Back2" to="Menu/Credits" method="OnBackButtonPressed"]

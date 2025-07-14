@@ -32,7 +32,7 @@ public partial class Level : Node2D
         new(-10000, 10000),
     ];
     [Export]
-    public double AgentSize { get; private set; } = 12.0f;
+    public double AgentSize { get; private set; } = 10.0f;
 #pragma warning restore 0649
 
     private NavMesh navMesh;

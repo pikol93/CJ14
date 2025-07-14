@@ -93,7 +93,7 @@ shape = SubResource("RectangleShape2D_b2dip")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_t467l")
 emitting = false
-amount = 32
+amount = 48
 texture = ExtResource("3_3i4b6")
 lifetime = 9999.0
 one_shot = true
@@ -103,3 +103,4 @@ process_material = ExtResource("4_3i4b6")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_er4bd")
+bus = &"Sound"

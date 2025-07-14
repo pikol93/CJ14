@@ -28,8 +28,9 @@ public partial class Agent : CharacterBody2D, IDamagable, ITeammable
     public override void _Ready()
     {
         health = BaseHealth;
-        if (Controller is PlayerController)
+        if (!GetGroups().Contains("Agent"))
         {
+            GD.PrintErr($"Agent not in \"Agent\" group: {Name}");
         }
 
         Level = this.GetAncestor<Level>();
@@ -109,6 +110,8 @@ public partial class Agent : CharacterBody2D, IDamagable, ITeammable
 
     protected virtual void SecondaryActive() { }
 
+    protected virtual void OnDeath() { }
+
     public void TakeDamage(double damage, DamageType damageType)
     {
         health -= damage;
@@ -119,5 +122,6 @@ public partial class Agent : CharacterBody2D, IDamagable, ITeammable
 
         GD.Print($"Agent {Name} died.");
         CollisionLayer = 0;
+        OnDeath();
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Godot;
 using Microsoft.VisualBasic;
 
@@ -16,11 +17,22 @@ public partial class World : Node
     public PackedScene LevelScene { get; set; }
     private List<AgentHistory> AgentHistories { get; } = [];
     private CameraPlayer Camera { get; set; }
-    private Node2D Level { get; set; }
+    private Level Level { get; set; }
     private Agent PlayerAgent { get; set; }
+    private CanvasLayer AgentChoiceLayer { get; set; }
+    private CanvasLayer YouAreDeadLayer { get; set; }
+    private CanvasLayer GameMenuLayer { get; set; }
+
+    public int ShootersAvailable { get; set; }
+    public int BombersAvailable { get; set; }
+    public int ShotgunsAvailable { get; set; }
 
     public override void _Ready()
     {
+        ProcessMode = ProcessModeEnum.Always;
+        AgentChoiceLayer = GetNode<CanvasLayer>("AgentChoice");
+        YouAreDeadLayer = GetNode<CanvasLayer>("YouAreDead");
+        GameMenuLayer = GetNode<CanvasLayer>("GameMenu");
 
         Camera = new CameraPlayer()
         {
@@ -29,8 +41,20 @@ public partial class World : Node
         };
         AddChild(Camera);
 
-        ProcessMode = ProcessModeEnum.Always;
-        LoadLevel();
+        var level = LevelScene.Instantiate<Level>();
+        ShootersAvailable = level.ShootersAvailable;
+        BombersAvailable = level.BombersAvailable;
+        ShotgunsAvailable = level.ShotgunsAvailable;
+        level.Free();
+
+        AgentChoiceLayer.Visible = true;
+        GameMenuLayer.Visible = false;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        var hideYouAreDead = PlayerAgent != null && PlayerAgent.IsAlive();
+        YouAreDeadLayer.Visible = !hideYouAreDead;
     }
 
     public override void _Input(InputEvent ie)
@@ -41,23 +65,31 @@ public partial class World : Node
             {
                 switch (iek.PhysicalKeycode)
                 {
-                    // Go to main menu
+                    // Reload
                     case Key.R:
                         ReloadLevel();
                         break;
-                    case Key.P:
-                        GetTree().Paused = !GetTree().Paused;
+                    case Key.Escape:
+                        GameMenuLayer.Visible = true;
                         break;
                 }
             }
         }
     }
 
-    private void ReloadLevel()
+    public void ReloadLevel()
     {
-        GetTree().Paused = true;
+        if (!CanReset())
+        {
+            return;
+        }
         CommitAndUnloadLevel();
-        LoadLevel();
+        AgentChoiceLayer.Visible = true;
+    }
+
+    public bool CanReset()
+    {
+        return ShootersAvailable > 0 || BombersAvailable > 0 || ShotgunsAvailable > 0;
     }
 
     private void CommitAndUnloadLevel()
@@ -88,9 +120,10 @@ public partial class World : Node
         Level = null;
     }
 
-    private void LoadLevel()
+    public void LoadLevel(AgentType playerAgentType)
     {
-        Level = LevelScene.Instantiate<Node2D>();
+        AgentChoiceLayer.Visible = false;
+        Level = LevelScene.Instantiate<Level>();
         if (Level.ProcessMode != ProcessModeEnum.Pausable)
         {
             GD.PrintErr("Level {} is not pausable. This may cause issues.");
@@ -105,7 +138,7 @@ public partial class World : Node
             Level.AddChild(agent);
         }
 
-        PlayerAgent = AgentType.Shooter.GetPackedScene().Instantiate<Agent>();
+        PlayerAgent = playerAgentType.GetPackedScene().Instantiate<Agent>();
         PlayerAgent.Position = startingPosition;
         PlayerAgent.Controller = new PlayerController(PlayerAgent);
         Level.AddChild(PlayerAgent);

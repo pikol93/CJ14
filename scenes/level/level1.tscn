@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7oe08pvqcjq3"]
+[gd_scene load_steps=21 format=3 uid="uid://b7oe08pvqcjq3"]
 
 [ext_resource type="PackedScene" uid="uid://c4gtv1hvyqi5g" path="res://scenes/wall.tscn" id="1_gvmle"]
 [ext_resource type="Script" uid="uid://bucnck85r8c4s" path="res://scripts/Level.cs" id="1_pgq8h"]
+[ext_resource type="PackedScene" uid="uid://c75bhdr4wblr4" path="res://scenes/enemy/enemy.tscn" id="2_pgq8h"]
 [ext_resource type="PackedScene" uid="uid://chlddcxtfpxvy" path="res://scenes/window_large.tscn" id="3_pgq8h"]
 [ext_resource type="PackedScene" uid="uid://b67uallwvgkxd" path="res://scenes/window_small.tscn" id="4_5yh3o"]
 [ext_resource type="PackedScene" uid="uid://b4lqp0ju4yf2f" path="res://scenes/door.tscn" id="5_mg8dc"]
@@ -15,10 +16,16 @@
 [ext_resource type="PackedScene" uid="uid://t8kl8bwg6y07" path="res://scenes/decoration/counter.tscn" id="13_tlhdo"]
 [ext_resource type="Texture2D" uid="uid://c035yix4awvw1" path="res://textures/environment/decoration/bar_stool.png" id="14_frac2"]
 [ext_resource type="PackedScene" uid="uid://b1smmb63v6yo6" path="res://scenes/decoration/bar_stand.tscn" id="15_y486x"]
+[ext_resource type="Texture2D" uid="uid://dy0lnyrqnj12s" path="res://textures/environment/decoration/stairs.png" id="17_kifar"]
+[ext_resource type="PackedScene" uid="uid://bx2cbhmypnrcw" path="res://scenes/decoration/kitchen_appliances.tscn" id="20_2hvif"]
+[ext_resource type="PackedScene" uid="uid://dnwyvngxuhkj5" path="res://scenes/decoration/kitchen_stove.tscn" id="20_kfqn7"]
+[ext_resource type="PackedScene" uid="uid://crsed0gxy7j8l" path="res://scenes/decoration/kitchen_shelf.tscn" id="20_l8whu"]
 
 [node name="Level1" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_pgq8h")
+ShootersAvailable = 2
+BombersAvailable = 1
 Bounds = PackedVector2Array(-1000, -1000, 1000, -1000, 1000, 1000, -1000, 1000)
 
 [node name="Floors" type="Node2D" parent="."]
@@ -51,23 +58,30 @@ region_rect = Rect2(0, 0, 512, 232)
 
 [node name="WhiteLight" parent="Lights" instance=ExtResource("5_q1drb")]
 position = Vector2(352, 360)
+energy = 0.5
 
 [node name="WhiteLight2" parent="Lights" instance=ExtResource("5_q1drb")]
 position = Vector2(544, 360)
+energy = 0.5
+
+[node name="WhiteLight6" parent="Lights" instance=ExtResource("5_q1drb")]
+position = Vector2(572, 268)
 
 [node name="WhiteLight3" parent="Lights" instance=ExtResource("5_q1drb")]
 position = Vector2(308, 212)
 color = Color(1, 1, 0.545098, 1)
-energy = 0.2
+energy = 0.5
 
 [node name="WhiteLight4" parent="Lights" instance=ExtResource("5_q1drb")]
-position = Vector2(520, 128)
+position = Vector2(504, 156)
 color = Color(1, 0, 0, 1)
+energy = 0.7
 texture_scale = 0.2
 
 [node name="WhiteLight5" parent="Lights" instance=ExtResource("5_q1drb")]
-position = Vector2(592, 128)
+position = Vector2(620, 156)
 color = Color(1, 0, 0, 1)
+energy = 0.7
 texture_scale = 0.2
 
 [node name="Walls" type="Node2D" parent="."]
@@ -128,6 +142,10 @@ rotation = 1.5708
 IsRotated = true
 Length = 32.0
 
+[node name="Wall27" parent="Walls" instance=ExtResource("1_gvmle")]
+position = Vector2(544, 444)
+Length = 48.0
+
 [node name="Wall18" parent="Walls" instance=ExtResource("1_gvmle")]
 position = Vector2(700, 320)
 rotation = 1.5708
@@ -172,10 +190,6 @@ Length = 232.0
 [node name="Wall6" parent="Walls" instance=ExtResource("1_gvmle")]
 position = Vector2(432, 444)
 Length = 96.0
-
-[node name="Wall16" parent="Walls" instance=ExtResource("1_gvmle")]
-position = Vector2(612, 444)
-Length = 184.0
 
 [node name="Decoration" type="Node2D" parent="."]
 
@@ -229,17 +243,15 @@ rotation = 3.14159
 [node name="Table5" parent="Decoration" instance=ExtResource("11_m2gd4")]
 position = Vector2(588, 416)
 
-[node name="Table6" parent="Decoration" instance=ExtResource("12_jawes")]
-position = Vector2(300, 188)
-
-[node name="Table7" parent="Decoration" instance=ExtResource("12_jawes")]
-position = Vector2(324, 188)
-
-[node name="Table8" parent="Decoration" instance=ExtResource("12_jawes")]
-position = Vector2(324, 236)
-
 [node name="Table9" parent="Decoration" instance=ExtResource("12_jawes")]
-position = Vector2(300, 236)
+position = Vector2(288, 224)
+rotation = 1.5708
+
+[node name="Table10" parent="Decoration" instance=ExtResource("12_jawes")]
+position = Vector2(272, 176)
+
+[node name="Table11" parent="Decoration" instance=ExtResource("12_jawes")]
+position = Vector2(304, 176)
 
 [node name="BarStool" type="Sprite2D" parent="Decoration"]
 position = Vector2(576, 328)
@@ -285,6 +297,12 @@ position = Vector2(320, 100)
 [node name="WindowLarge2" parent="Windows" instance=ExtResource("3_pgq8h")]
 position = Vector2(352, 444)
 
+[node name="WindowLarge3" parent="Windows" instance=ExtResource("3_pgq8h")]
+position = Vector2(600, 444)
+
+[node name="WindowLarge5" parent="Windows" instance=ExtResource("3_pgq8h")]
+position = Vector2(664, 444)
+
 [node name="WindowLarge4" parent="Windows" instance=ExtResource("3_pgq8h")]
 position = Vector2(700, 384)
 rotation = 1.5708
@@ -314,8 +332,57 @@ position = Vector2(456, 100)
 position = Vector2(696, 156)
 rotation = -1.66679
 
+[node name="Node2D" type="Node2D" parent="."]
+
 [node name="PlayerSpawn" type="Node2D" parent="."]
 position = Vector2(640, 576)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.752941, 0.752941, 0.752941, 1)
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="Enemy" parent="." instance=ExtResource("2_pgq8h")]
+position = Vector2(230, 232)
+rotation = -0.328122
+
+[node name="Enemy3" parent="." instance=ExtResource("2_pgq8h")]
+position = Vector2(380, 136)
+rotation = 2.45219
+
+[node name="Enemy2" parent="." instance=ExtResource("2_pgq8h")]
+position = Vector2(396, 246)
+rotation = -2.8414
+
+[node name="Stairs" type="Sprite2D" parent="."]
+position = Vector2(536, 188)
+texture = ExtResource("17_kifar")
+
+[node name="KitchenStove" parent="." instance=ExtResource("20_kfqn7")]
+position = Vector2(288, 296)
+rotation = 1.5708
+
+[node name="KitchenAppliances" parent="." instance=ExtResource("20_2hvif")]
+position = Vector2(384, 296)
+rotation = 1.5708
+
+[node name="KitchenShelf" parent="." instance=ExtResource("20_l8whu")]
+position = Vector2(212, 120)
+
+[node name="KitchenShelf5" parent="." instance=ExtResource("20_l8whu")]
+position = Vector2(400, 208)
+rotation = 1.5708
+
+[node name="KitchenShelf6" parent="." instance=ExtResource("20_l8whu")]
+position = Vector2(400, 184)
+rotation = 1.5708
+
+[node name="KitchenShelf2" parent="." instance=ExtResource("20_l8whu")]
+position = Vector2(212, 296)
+rotation = 3.14159
+
+[node name="KitchenShelf3" parent="." instance=ExtResource("20_l8whu")]
+position = Vector2(236, 296)
+rotation = 3.14159
+
+[node name="KitchenShelf4" parent="." instance=ExtResource("20_l8whu")]
+position = Vector2(340, 296)
+rotation = 3.14159

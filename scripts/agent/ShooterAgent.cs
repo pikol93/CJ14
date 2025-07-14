@@ -40,9 +40,10 @@ public partial class ShooterAgent : Agent
 
         var bullet = Bullet.Create();
         bullet.currentPosition = globalPosition;
-        bullet.damage = 20.0;
+        bullet.damage = 7.0;
         bullet.velocity = direction * 4000.0f;
         bullet.minVelocity = 5.0f;
+        bullet.Team = Team.Player;
 
         Level.CallDeferred("add_child", bullet);
         animationPlayer.Play("shoot");

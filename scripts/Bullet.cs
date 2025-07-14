@@ -109,6 +109,11 @@ public partial class Bullet : Line2D
                 }
             }
 
+            if (collider.IsQueuedForDeletion())
+            {
+                continue;
+            }
+
             if (collider is IDamagable damagable)
             {
                 damagable.TakeDamage(damage, DamageType.Bullet);

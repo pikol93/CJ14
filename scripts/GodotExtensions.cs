@@ -15,11 +15,7 @@ public static class GodotExtensions
     public static T GetNodeOrThrow<T>(this Node parent, string path)
         where T : class
     {
-        T target = parent.GetNode<T>(path);
-
-        if (target is null)
-            throw new ApplicationException($"Couldn't find node by path \"{path}\"");
-
+        T target = parent.GetNode<T>(path) ?? throw new ApplicationException($"Couldn't find node by path \"{path}\"");
         return target;
     }
 
@@ -127,8 +123,7 @@ public static class GodotExtensions
         if (node.ZAsRelative)
         {
             // Find if the ZIndex is inherited from parent
-            var parent = node.GetParent() as Node2D;
-            if (parent != null)
+            if (node.GetParent() is Node2D parent)
             {
                 // Recursive call for all ancestors
                 return node.ZIndex + parent.GetGlobalZIndex();
@@ -164,5 +159,10 @@ public static class GodotExtensions
         }
 
         return result;
+    }
+
+    public static IEnumerable<T> FindNodesInGroup<T>(this SceneTree tree, string groupName)
+    {
+        return tree.GetNodesInGroup(groupName).OfType<T>();
     }
 }
